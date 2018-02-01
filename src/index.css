@@ -1,5 +1,84 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+/*body {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}*/
+
+h3 {
+  margin-top: 2rem;
+}
+
+/*.row {
+  margin-bottom: 1rem;
+}*/
+
+.row .row {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+[class*="col-"] {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  /*background-color: rgba(86,61,124,.15);*/
+  border: 1px solid rgba(86, 61, 124, 0.2);
+}
+
+hr {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/*
+  Ripped from http://www.wei-wang.com/ExplainGitWithD3
+*/
+.control-box {
+  display: inline-block;
+  width: 250px;
+  vertical-align: bottom;
+  background-color: #000;
+  border: 1px dotted #aaa;
+}
+
+.control-box button {
+  font-family: Courier New;
+  font-size: 12px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.control-box .log {
+  overflow-y: auto;
+  border-bottom: 1px solid #aaa;
+}
+
+.control-box .log,
+.control-box input[type="text"] {
+  font-family: Courier New;
+  font-size: 14px;
+}
+
+.control-box .log .command-entry,
+.control-box input[type="text"] {
+  padding-left: 15px;
+  color: #fff;
+  line-height: 14px;
+  background: url(prompt.gif) no-repeat left center transparent;
+}
+
+.control-box .log .info,
+.control-box .log .error {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.control-box .log .info {
+  color: #ffc;
+}
+
+.control-box .log .error {
+  color: #fcc;
+}
+
+.control-box input[type="text"] {
+  width: 235px;
+  border: none;
 }

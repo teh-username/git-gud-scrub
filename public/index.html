@@ -4,37 +4,84 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#000000">
-    <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <title>Git Trainer</title>
   </head>
   <body>
+    <div class="container-fluid">
+      <div id="root"></div>
+          <div class="row">
+      <div class="col-lg-3 col-sm-12">
+        <h4>Files (Max of 5)</h4>
+        <ul>
+          <li>
+            <span>File</span>
+            <button class="btn btn-link btn-sm">Modify</button>
+          </li>
+        </ul>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Filename">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button">Add File</button>
+          </span>
+        </div>
+        <div class="alert alert-warning" role="alert">
+          <strong>Warning!</strong> That filename is already taken bud.
+        </div>
+      </div>
+      <div class="col-lg-9 col-sm-12">
+        <h4>Commit Graph</h4>
+        <canvas id="gitGraph"></canvas>
+      </div>
+      <div class="col-lg-3 col-lg-push-3 col-sm-12">
+        <h4>Terminal</h4>
+        <!-- Ripped from http://www.wei-wang.com/ExplainGitWithD3 -->
+        <div class="control-box" style="height: 220px;">
+          <div class="log" style="height: 195px;">
+            <div class="info">Enter your git commands here!</div>
+            <div>
+              <div class="info">Info</div>
+              <div class="error">Error</div>
+            </div>
+          </div>
+          <input type="text" placeholder=" enter git command">
+        </div>
+      </div>
+      <div class="col-lg-9 col-lg-pull-9 col-sm-12">
+        <h4>File Status</h4>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Untracked</th>
+              <th>Unmodified</th>
+              <th>Modified</th>
+              <th>Staged</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div>Untracked</div>
+              </td>
+              <td>
+                <div>Unmodified</div>
+              </td>
+              <td>
+                <div>Modified</div>
+              </td>
+              <td>
+                <div>Staged</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
