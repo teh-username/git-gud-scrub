@@ -1,7 +1,6 @@
 language: node_js
 
 node_js:
-  - 6
   - 8
 
 cache:
@@ -13,5 +12,5 @@ script:
   - npm test
 
 after_success:
-  - chmod +x ./deploy.sh
-  - ./deploy.sh
+  - chmod +x ./publish.sh
+  - ./publish.sh
