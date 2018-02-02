@@ -10,4 +10,4 @@ temp=`echo $url | sed 's/\\\\\//\//g' | sed 's/[{}]//g' | awk -v k="text" '{n=sp
 
 # https://www.netlify.com/docs/api/#deploys
 echo "Publishing build ${temp##*|}..."
-wget --quiet --method POST --header "Authorization: Bearer $NETLIFY_PUBLISH_KEY" --output-document - "https://api.netlify.com/api/v1/sites/gitgudscrub.xyz/deploys/${temp##*|}/restore"
+curl -X POST -H "Authorization: Bearer $NETLIFY_PUBLISH_KEY" "https://api.netlify.com/api/v1/sites/gitgudscrub.xyz/deploys/${temp##*|}/restore"
