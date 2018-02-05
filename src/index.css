@@ -15,7 +15,7 @@ h3 {
   margin-top: 1rem;
   margin-bottom: 0;
 }
-[class*="col-"] {
+[class*='col-'] {
   padding-top: 1rem;
   padding-bottom: 1rem;
   /*background-color: rgba(86,61,124,.15);*/
@@ -51,13 +51,13 @@ hr {
 }
 
 .control-box .log,
-.control-box input[type="text"] {
+.control-box input[type='text'] {
   font-family: Courier New;
   font-size: 14px;
 }
 
 .control-box .log .command-entry,
-.control-box input[type="text"] {
+.control-box input[type='text'] {
   padding-left: 15px;
   color: #fff;
   line-height: 14px;
@@ -78,7 +78,16 @@ hr {
   color: #fcc;
 }
 
-.control-box input[type="text"] {
+.control-box input[type='text'] {
   width: 235px;
   border: none;
+}
+
+/*
+  overflow: auto;
+  max-height: 500px;
+ */
+
+.view {
+  min-height: 100vh;
 }
