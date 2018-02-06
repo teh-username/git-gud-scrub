@@ -1,3 +1,6 @@
 import { combineReducers } from 'redux';
+import fileSystem from './reducers/fileSystem';
 
-export default combineReducers({});
+export default combineReducers({
+  fileSystem,
+});

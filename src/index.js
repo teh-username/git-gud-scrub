@@ -8,7 +8,10 @@ import reducers from './reducer';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
-let store = createStore(reducers);
+let store = createStore(
+  reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 render(
   <Provider store={store}>

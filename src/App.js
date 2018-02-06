@@ -1,5 +1,5 @@
 import React from 'react';
-import FileSystem from './components/FileSystem';
+import FileSystem from './containers/FileSystem';
 import CommitGraph from './components/CommitGraph';
 import Terminal from './components/Terminal';
 import FileStatus from './components/FileStatus';
