@@ -11,74 +11,7 @@
   </head>
   <body>
     <div class="container-fluid">
-      <div id="root"></div>
-          <div class="row view">
-      <div class="col-lg-3 col-sm-12">
-        <h4>Files (Max of 5)</h4>
-        <ul>
-          <li>
-            <span>File</span>
-            <button class="btn btn-link btn-sm">Modify</button>
-          </li>
-        </ul>
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Filename">
-          <span class="input-group-btn">
-            <button class="btn btn-secondary" type="button">Add File</button>
-          </span>
-        </div>
-        <div class="alert alert-warning" role="alert">
-          <strong>Warning!</strong> That filename is already taken bud.
-        </div>
-      </div>
-      <div class="col-lg-9 col-sm-12">
-        <h4>Commit Graph</h4>
-        <canvas id="gitGraph"></canvas>
-      </div>
-      <div class="col-lg-3 col-lg-push-3 col-sm-12">
-        <h4>Terminal</h4>
-        <!-- Ripped from http://www.wei-wang.com/ExplainGitWithD3 -->
-        <div class="control-box" style="height: 220px;">
-          <div class="log" style="height: 195px;">
-            <div class="info">Enter your git commands here!</div>
-            <div>
-              <div class="info">Info</div>
-              <div class="error">Error</div>
-            </div>
-          </div>
-          <input type="text" placeholder=" enter git command">
-        </div>
-      </div>
-      <div class="col-lg-9 col-lg-pull-9 col-sm-12">
-        <h4>File Status</h4>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>Untracked</th>
-              <th>Unmodified</th>
-              <th>Modified</th>
-              <th>Staged</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <div>Untracked</div>
-              </td>
-              <td>
-                <div>Unmodified</div>
-              </td>
-              <td>
-                <div>Modified</div>
-              </td>
-              <td>
-                <div>Staged</div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+      <div class="row view" id="root"></div>
     </div>
     <noscript>
       You need to enable JavaScript to run this app.
