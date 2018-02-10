@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import fileSystem from './reducers/fileSystem';
+import fileSystem from './modules/fileSystem';
 
 export default combineReducers({
   fileSystem,

@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import App from './App';
-import reducers from './reducer';
+import reducer from './redux/index';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Provider store={createStore(reducers)}>
+    <Provider store={createStore(reducer)}>
       <App />
     </Provider>,
     div

@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+export const MAX_FILE_COUNT = 5;
+
 export const initialState = {
   files: ['woof.py', 'ruff.py'],
   fileStatus: {

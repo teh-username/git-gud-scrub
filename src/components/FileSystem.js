@@ -1,5 +1,5 @@
 import React from 'react';
-import constants from '../constants/fileSystem';
+import { MAX_FILE_COUNT as maxFileCount } from '../redux/modules/fileSystem';
 
 const File = ({ name, statuses }) => (
   <li>
@@ -44,7 +44,7 @@ const DuplicateFileNameWarning = () => (
 
 const FileSystem = ({ files, fileStatus }) => (
   <div className="col-lg-3 col-sm-12">
-    <h4>Files (Max of {constants.MAX_NUMBER_OF_FILES})</h4>
+    <h4>Files (Max of {maxFileCount})</h4>
     <FileList files={files} fileStatus={fileStatus} />
     <NewFileForm />
   </div>
