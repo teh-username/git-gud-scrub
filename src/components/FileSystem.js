@@ -1,7 +1,7 @@
 import React from 'react';
 import { MAX_FILE_COUNT as maxFileCount } from '../redux/modules/fileSystem';
 
-const File = ({ name, statuses }) => (
+export const File = ({ name, statuses }) => (
   <li>
     <span>{name}</span>
     {!statuses.modified && (
@@ -10,7 +10,7 @@ const File = ({ name, statuses }) => (
   </li>
 );
 
-const FileList = ({ files, fileStatus }) => (
+export const FileList = ({ files, fileStatus }) => (
   <ul>
     {files.map(name => (
       <File key={name} name={name} statuses={fileStatus[name]} />
@@ -19,13 +19,42 @@ const FileList = ({ files, fileStatus }) => (
 );
 
 class NewFileForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      fileName: '',
+    };
+    this.onAddFile = this.onAddFile.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({ fileName: event.target.value });
+  }
+
+  onAddFile(fileName) {
+    this.props.onAddFile(this.state.fileName);
+    this.setState({ fileName: '' });
+  }
+
   render() {
+    const { fileName } = this.state;
     return (
       <div>
         <div className="input-group">
-          <input type="text" className="form-control" placeholder="Filename" />
+          <input
+            value={fileName}
+            type="text"
+            className="form-control"
+            placeholder="Filename"
+            onChange={this.onChange}
+          />
           <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button">
+            <button
+              className="btn btn-secondary"
+              type="button"
+              onClick={this.onAddFile}
+            >
               Add File
             </button>
           </span>
@@ -42,11 +71,11 @@ const DuplicateFileNameWarning = () => (
   </div>
 );
 
-const FileSystem = ({ files, fileStatus }) => (
+const FileSystem = ({ files, fileStatus, addFile }) => (
   <div className="col-lg-3 col-sm-12">
     <h4>Files (Max of {maxFileCount})</h4>
     <FileList files={files} fileStatus={fileStatus} />
-    <NewFileForm />
+    <NewFileForm onAddFile={addFile} />
   </div>
 );
 

@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileSystem Component File Component renders a modified file entry correctly 1`] = `
+<li>
+  <span>
+    heyo.js
+  </span>
+</li>
+`;
+
+exports[`FileSystem Component File Component renders a unmodified file entry correctly 1`] = `
+<li>
+  <span>
+    heyo.js
+  </span>
+  <button
+    className="btn btn-link btn-sm"
+  >
+    Modify
+  </button>
+</li>
+`;
+
+exports[`FileSystem Component FileList Component renders the correct number of File entries 1`] = `
+<ul>
+  <Component
+    key="heyo.js"
+    name="heyo.js"
+    statuses={
+      Object {
+        "modified": true,
+      }
+    }
+  />
+  <Component
+    key="heya.js"
+    name="heya.js"
+    statuses={
+      Object {
+        "modified": false,
+      }
+    }
+  />
+</ul>
+`;
+
+exports[`FileSystem Component renders correctly 1`] = `
+<div
+  className="col-lg-3 col-sm-12"
+>
+  <h4>
+    Files (Max of 
+    5
+    )
+  </h4>
+  <Component
+    fileStatus={Object {}}
+    files={Array []}
+  />
+  <NewFileForm />
+</div>
+`;
