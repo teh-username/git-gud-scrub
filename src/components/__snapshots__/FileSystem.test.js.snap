@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`FileSystem Component DuplicateFileNameWarning should render correctly 1`] = `
+<div
+  className="alert alert-warning"
+  role="alert"
+>
+  <strong>
+    Warning!
+  </strong>
+   That filename is already taken bud.
+</div>
+`;
+
 exports[`FileSystem Component File Component renders a modified file entry correctly 1`] = `
 <li>
   <span>
@@ -44,7 +56,85 @@ exports[`FileSystem Component FileList Component renders the correct number of F
 </ul>
 `;
 
-exports[`FileSystem Component renders correctly 1`] = `
+exports[`FileSystem Component NewFileForm Component should display a duplicate warning if we try to enter the same filename twice 1`] = `
+<div>
+  <div
+    className="input-group"
+  >
+    <input
+      className="form-control"
+      onChange={[Function]}
+      placeholder="Filename"
+      type="text"
+      value=""
+    />
+    <span
+      className="input-group-btn"
+    >
+      <button
+        className="btn btn-secondary"
+        onClick={[Function]}
+        type="button"
+      >
+        Add File
+      </button>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`FileSystem Component NewFileForm Component should render correctly 1`] = `
+<div>
+  <div
+    className="input-group"
+  >
+    <input
+      className="form-control"
+      onChange={[Function]}
+      placeholder="Filename"
+      type="text"
+      value=""
+    />
+    <span
+      className="input-group-btn"
+    >
+      <button
+        className="btn btn-secondary"
+        onClick={[Function]}
+        type="button"
+      >
+        Add File
+      </button>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`FileSystem Component does not render form if file count is equal to max count 1`] = `
+<div
+  className="col-lg-3 col-sm-12"
+>
+  <h4>
+    Files (Max of 
+    5
+    )
+  </h4>
+  <Component
+    fileStatus={Object {}}
+    files={
+      Array [
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+      ]
+    }
+  />
+</div>
+`;
+
+exports[`FileSystem Component renders form if file count is less than max count 1`] = `
 <div
   className="col-lg-3 col-sm-12"
 >
@@ -57,6 +147,8 @@ exports[`FileSystem Component renders correctly 1`] = `
     fileStatus={Object {}}
     files={Array []}
   />
-  <NewFileForm />
+  <NewFileForm
+    files={Array []}
+  />
 </div>
 `;

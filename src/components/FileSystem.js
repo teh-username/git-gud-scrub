@@ -18,11 +18,12 @@ export const FileList = ({ files, fileStatus }) => (
   </ul>
 );
 
-class NewFileForm extends React.Component {
+export class NewFileForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       fileName: '',
+      hasDuplicate: false,
     };
     this.onAddFile = this.onAddFile.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -32,13 +33,19 @@ class NewFileForm extends React.Component {
     this.setState({ fileName: event.target.value });
   }
 
-  onAddFile(fileName) {
-    this.props.onAddFile(this.state.fileName);
-    this.setState({ fileName: '' });
+  onAddFile() {
+    if (this.props.files.includes(this.state.fileName)) {
+      this.setState({
+        hasDuplicate: true,
+      });
+    } else {
+      this.props.onAddFile(this.state.fileName);
+      this.setState({ fileName: '', hasDuplicate: false });
+    }
   }
 
   render() {
-    const { fileName } = this.state;
+    const { fileName, hasDuplicate } = this.state;
     return (
       <div>
         <div className="input-group">
@@ -59,13 +66,13 @@ class NewFileForm extends React.Component {
             </button>
           </span>
         </div>
-        <DuplicateFileNameWarning />
+        {hasDuplicate && <DuplicateFileNameWarning />}
       </div>
     );
   }
 }
 
-const DuplicateFileNameWarning = () => (
+export const DuplicateFileNameWarning = () => (
   <div className="alert alert-warning" role="alert">
     <strong>Warning!</strong> That filename is already taken bud.
   </div>
@@ -75,7 +82,9 @@ const FileSystem = ({ files, fileStatus, addFile }) => (
   <div className="col-lg-3 col-sm-12">
     <h4>Files (Max of {maxFileCount})</h4>
     <FileList files={files} fileStatus={fileStatus} />
-    <NewFileForm onAddFile={addFile} />
+    {files.length < maxFileCount && (
+      <NewFileForm onAddFile={addFile} files={files} />
+    )}
   </div>
 );
 
