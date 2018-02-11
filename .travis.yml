@@ -8,8 +8,11 @@ cache:
     - node_modules
 
 script:
+  - npm test -- --coverage
   - npm run build
-  - npm test
+
+after_script:
+  - COVERALLS_REPO_TOKEN=$COVERALLS_REPO_KEY npm run coveralls
 
 after_success:
   - chmod +x ./publish.sh
