@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FileStatus Component FileStatusRow Component renders the correct amount of divs 1`] = `
+Array [
+  <div
+    key="ut-heyo"
+/>,
+  <div
+    key="ut-woo"
+/>,
+  <div
+    key="ut-woof"
+/>,
+]
+`;
+
+exports[`FileStatus Component FileStatusTable Component renders the table correclty 1`] = `
+<table
+  className="table table-bordered"
+>
+  <thead>
+    <tr>
+      <th>
+        Untracked
+      </th>
+      <th>
+        Unmodified
+      </th>
+      <th>
+        Modified
+      </th>
+      <th>
+        Staged
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <Component
+          files={
+            Array [
+              "revan",
+            ]
+          }
+          prefix="ut"
+        />
+      </td>
+      <td>
+        <Component
+          files={
+            Array [
+              "bastila",
+            ]
+          }
+          prefix="umod"
+        />
+      </td>
+      <td>
+        <Component
+          files={
+            Array [
+              "malak",
+            ]
+          }
+          prefix="mod"
+        />
+      </td>
+      <td>
+        <Component
+          files={
+            Array [
+              "malak",
+              "bastila",
+            ]
+          }
+          prefix="st"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
+`;
+
+exports[`FileStatus Component renders correctly 1`] = `
+<div
+  className="col-lg-9 col-lg-pull-9 col-sm-12"
+>
+  <h4>
+    File Status
+  </h4>
+  <Component
+    fileStates={Object {}}
+  />
+</div>
+`;

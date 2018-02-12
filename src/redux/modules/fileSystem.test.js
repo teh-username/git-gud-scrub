@@ -31,8 +31,8 @@ describe('fileSystem modules test', () => {
       expect(fileStatusReducer({}, addFile('heyo.js'))).toEqual({
         'heyo.js': {
           tracked: false,
-          modified: false,
-          staged: false,
+          modified: undefined,
+          staged: undefined,
         },
       });
     });
@@ -57,8 +57,8 @@ describe('fileSystem modules test', () => {
         },
         'heyo.js': {
           tracked: false,
-          modified: false,
-          staged: false,
+          modified: undefined,
+          staged: undefined,
         },
       });
     });

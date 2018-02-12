@@ -43,8 +43,8 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
         ...state,
         [action.fileName]: {
           tracked: false,
-          modified: false,
-          staged: false,
+          modified: undefined,
+          staged: undefined,
         },
       };
     default:
