@@ -1,15 +1,6 @@
-/*body {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}*/
-
 h3 {
   margin-top: 2rem;
 }
-
-/*.row {
-  margin-bottom: 1rem;
-}*/
 
 .row .row {
   margin-top: 1rem;
@@ -28,14 +19,24 @@ hr {
 }
 
 /*
-  Ripped from http://www.wei-wang.com/ExplainGitWithD3
+  Ripped from https://onlywei.github.io/explain-git-with-d3/
 */
+
+.console {
+  overflow: auto;
+  max-height: 500px;
+}
+
 .control-box {
   display: inline-block;
+  position: absolute;
+  top: 0px;
+  bottom: 0;
   width: 250px;
   vertical-align: bottom;
   background-color: #000;
   border: 1px dotted #aaa;
+  margin-top: 50px;
 }
 
 .control-box button {
@@ -47,6 +48,11 @@ hr {
 
 .control-box .log {
   overflow-y: auto;
+  position: absolute;
+  top: 0px;
+  bottom: 20px;
+  left: 0;
+  right: 0;
   border-bottom: 1px solid #aaa;
 }
 
@@ -56,18 +62,26 @@ hr {
   font-size: 14px;
 }
 
-.control-box .log .command-entry,
-.control-box input[type='text'] {
+.control-box .log .info,
+.control-box .log .error {
+  font-size: 12px;
+  padding: 5px;
+}
+
+.control-box .log .command-entry {
   padding-left: 15px;
   color: #fff;
   line-height: 14px;
   background: url(prompt.gif) no-repeat left center transparent;
 }
 
-.control-box .log .info,
-.control-box .log .error {
-  font-size: 12px;
-  padding: 5px;
+.control-box input[type='text'] {
+  position: absolute;
+  bottom: 0;
+  padding-left: 15px;
+  color: #fff;
+  line-height: 14px;
+  background: url(prompt.gif) no-repeat left center transparent;
 }
 
 .control-box .log .info {
@@ -82,11 +96,6 @@ hr {
   width: 235px;
   border: none;
 }
-
-/*
-  overflow: auto;
-  max-height: 500px;
- */
 
 .view {
   min-height: 100vh;

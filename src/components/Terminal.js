@@ -1,8 +1,8 @@
 import React from 'react';
 
-// Ripped from http://www.wei-wang.com/ExplainGitWithD3
+// Ripped from https://onlywei.github.io/explain-git-with-d3/
 const Terminal = () => (
-  <div className="col-lg-3 col-lg-push-3 col-sm-12">
+  <div className="col-lg-3 col-lg-push-3 col-sm-12 console">
     <h4>Terminal</h4>
     <div className="control-box" style={{ height: '220px' }}>
       <div className="log" style={{ height: '195' }}>
