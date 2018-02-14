@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 
 export const MAX_FILE_COUNT = 5;
 const ADD_FILE = 'modules/fileSystem/ADD_FILE';
+const MODIFY_FILE = 'modules/fileSystem/MODIFY_FILE';
 
 /*
   Sample state:
@@ -24,7 +25,7 @@ const ADD_FILE = 'modules/fileSystem/ADD_FILE';
 
 export const initialState = {
   files: [],
-  fileStatus: {},
+  fileStatus: {}
 };
 
 export const files = (state = initialState.files, action) => {
@@ -44,8 +45,16 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
         [action.fileName]: {
           tracked: false,
           modified: undefined,
-          staged: undefined,
-        },
+          staged: undefined
+        }
+      };
+    case MODIFY_FILE:
+      return {
+        ...state,
+        [action.fileName]: {
+          ...state[action.fileName],
+          modified: true
+        }
       };
     default:
       return state;
@@ -54,12 +63,17 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
 
 export default combineReducers({
   files,
-  fileStatus,
+  fileStatus
 });
 
 export const addFile = fileName => ({
   type: ADD_FILE,
-  fileName,
+  fileName
+});
+
+export const modifyFile = fileName => ({
+  type: MODIFY_FILE,
+  fileName
 });
 
 export const getFiles = ({ fileSystem }) => fileSystem.files;
