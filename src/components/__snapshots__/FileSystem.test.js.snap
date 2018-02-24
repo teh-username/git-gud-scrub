@@ -20,7 +20,7 @@ exports[`FileSystem Component File Component renders a modified file entry corre
 </li>
 `;
 
-exports[`FileSystem Component File Component renders a unmodified file entry correctly 1`] = `
+exports[`FileSystem Component File Component renders an unmodified and tracked file entry correctly 1`] = `
 <li>
   <span>
     heyo.js
@@ -30,6 +30,14 @@ exports[`FileSystem Component File Component renders a unmodified file entry cor
   >
     Modify
   </button>
+</li>
+`;
+
+exports[`FileSystem Component File Component renders an unmodified and untracked file entry correctly 1`] = `
+<li>
+  <span>
+    heyo.js
+  </span>
 </li>
 `;
 

@@ -24,11 +24,19 @@ describe('FileSystem Component', () => {
   });
 
   describe('File Component', () => {
-    it('renders a unmodified file entry correctly', () => {
+    it('renders an unmodified and tracked file entry correctly', () => {
+      const wrapper = shallow(
+        <File name="heyo.js" statuses={{ modified: false, tracked: true }} />
+      );
+      expect(wrapper.find('button').get(0)).not.toBeNull();
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('renders an unmodified and untracked file entry correctly', () => {
       const wrapper = shallow(
         <File name="heyo.js" statuses={{ modified: false }} />
       );
-      expect(wrapper.find('button').get(0)).not.toBeNull();
+      expect(wrapper.find('button').get(0)).toBeNull();
       expect(wrapper).toMatchSnapshot();
     });
 

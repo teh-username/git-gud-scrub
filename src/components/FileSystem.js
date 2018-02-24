@@ -4,7 +4,7 @@ import { MAX_FILE_COUNT as maxFileCount } from '../redux/modules/fileSystem';
 export const File = ({ name, statuses }) => (
   <li>
     <span>{name}</span>
-    {!statuses.modified && (
+    {!statuses.modified && statuses.tracked && (
       <button className="btn btn-link btn-sm">Modify</button>
     )}
   </li>
