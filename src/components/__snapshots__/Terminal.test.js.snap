@@ -57,10 +57,16 @@ exports[`Terminal Component renders entries correctly 1`] = `
         </div>
       </div>
     </div>
-    <input
-      placeholder=" enter git command"
-      type="text"
-    />
+    <form
+      onSubmit={[Function]}
+    >
+      <input
+        onChange={[Function]}
+        placeholder=" enter git command"
+        type="text"
+        value=""
+      />
+    </form>
   </div>
 </div>
 `;
@@ -97,10 +103,16 @@ exports[`Terminal Component renders the console predictably 1`] = `
         className="entries"
       />
     </div>
-    <input
-      placeholder=" enter git command"
-      type="text"
-    />
+    <form
+      onSubmit={[Function]}
+    >
+      <input
+        onChange={[Function]}
+        placeholder=" enter git command"
+        type="text"
+        value=""
+      />
+    </form>
   </div>
 </div>
 `;
