@@ -44,6 +44,7 @@ class Terminal extends React.Component {
           </div>
           <form onSubmit={this.onSubmit}>
             <input
+              spellCheck={false}
               type="text"
               value={userInput}
               placeholder=" enter git command"
