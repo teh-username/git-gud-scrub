@@ -1,6 +1,7 @@
 const commandParser = commandString => {
-  const [, command, ...rest] = commandString.split(' ');
+  const [executable, command, ...rest] = commandString.split(' ');
   return {
+    executable,
     command,
     argument: rest.pop(),
     flags: rest

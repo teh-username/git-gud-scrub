@@ -1,8 +1,18 @@
 import commandParser from './commandParser';
 
 describe('Command Parser Util', () => {
+  it('should return the correct default object when empty string is passed', () => {
+    expect(commandParser('')).toEqual({
+      executable: '',
+      command: undefined,
+      argument: undefined,
+      flags: []
+    });
+  });
+
   it('should return the correct default object when no command is passed', () => {
     expect(commandParser('git')).toEqual({
+      executable: 'git',
       command: undefined,
       argument: undefined,
       flags: []
@@ -40,6 +50,7 @@ describe('Command Parser Util', () => {
   it('should parse the command string correctly on full options', () => {
     const parsed = commandParser('git add --x --e --n dummy');
     expect(parsed).toEqual({
+      executable: 'git',
       command: 'add',
       argument: 'dummy',
       flags: ['--x', '--e', '--n']
