@@ -2,13 +2,13 @@ import React from 'react';
 import FileSystem from './containers/FileSystem';
 import FileStatus from './containers/FileStatus';
 import CommitGraph from './components/CommitGraph';
-import Terminal from './components/Terminal';
+import Terminal from './containers/Terminal';
 
 const App = () => [
   <FileSystem key="fs" />,
   <CommitGraph key="cg" />,
   <Terminal key="tl" />,
-  <FileStatus key="ft" />,
+  <FileStatus key="ft" />
 ];
 
 export default App;
