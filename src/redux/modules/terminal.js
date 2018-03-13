@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 const ADD_LOG_INFO = 'modules/terminal/ADD_LOG_INFO';
-const ADD_LOG_ERROR = 'modules/terminal/ADD_LOG_ERROR';
+export const ADD_LOG_ERROR = 'modules/terminal/ADD_LOG_ERROR';
 
 /*
   Sample state:
@@ -19,7 +19,7 @@ const ADD_LOG_ERROR = 'modules/terminal/ADD_LOG_ERROR';
   }
 */
 export const initialState = {
-  entries: []
+  entries: [],
 };
 
 export const entries = (state = initialState.entries, action) => {
@@ -34,17 +34,17 @@ export const entries = (state = initialState.entries, action) => {
 };
 
 export default combineReducers({
-  entries
+  entries,
 });
 
 export const addLogInfo = text => ({
   type: ADD_LOG_INFO,
-  text
+  text,
 });
 
 export const addLogError = text => ({
   type: ADD_LOG_ERROR,
-  text
+  text,
 });
 
 export const getEntries = ({ terminal }) => terminal.entries;

@@ -9,7 +9,10 @@ export const gitAdd = fileName => ({
   fileName,
 });
 
-const emulateAdd = ({ command, argument, flags }) => (dispatch, getState) => {
+export const emulateAdd = ({ command, argument, flags }) => (
+  dispatch,
+  getState
+) => {
   const files = getFiles(getState());
   if (files.includes(argument)) {
     return dispatch(gitAdd(argument));
