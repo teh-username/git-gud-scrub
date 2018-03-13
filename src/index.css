@@ -24,19 +24,18 @@ hr {
 
 .console {
   overflow: auto;
-  max-height: 500px;
 }
 
 .control-box {
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  bottom: 0;
-  width: 250px;
-  vertical-align: bottom;
   background-color: #000;
   border: 1px dotted #aaa;
-  margin-top: 50px;
+  width: 100%;
+  height: calc(100% - 36px);
+  max-height: calc(100% - 36px);
+  margin-top: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .control-box button {
@@ -47,13 +46,16 @@ hr {
 }
 
 .control-box .log {
-  overflow-y: auto;
+  flex: 1 1 auto;
+  overflow: auto;
+  position: relative;
+}
+
+.log-inner {
   position: absolute;
-  top: 0px;
-  bottom: 20px;
+  top: 0;
   left: 0;
-  right: 0;
-  border-bottom: 1px solid #aaa;
+  width: 100%;
 }
 
 .control-box .log,
@@ -75,9 +77,12 @@ hr {
   background: url(prompt.gif) no-repeat left center transparent;
 }
 
+.control-box-form {
+  margin-top: auto;
+  border-top: 1px solid #dedede;
+}
+
 .control-box input[type='text'] {
-  position: absolute;
-  bottom: 0;
   padding-left: 15px;
   color: #fff;
   line-height: 14px;
@@ -93,7 +98,7 @@ hr {
 }
 
 .control-box input[type='text'] {
-  width: 235px;
+  width: 100%;
   border: none;
 }
 

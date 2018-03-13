@@ -9,55 +9,50 @@ exports[`Terminal Component renders entries correctly 1`] = `
   </h4>
   <div
     className="control-box"
-    style={
-      Object {
-        "height": "220px",
-      }
-    }
   >
     <div
       className="log"
-      style={
-        Object {
-          "height": "195",
-        }
-      }
     >
       <div
-        className="info"
-      >
-        Enter your git commands here!
-      </div>
-      <div
-        className="entries"
+        className="log-inner"
       >
         <div
           className="info"
-          key="0"
         >
-          Darth Malak
+          Enter your git commands here!
         </div>
         <div
-          className="info"
-          key="1"
+          className="entries"
         >
-          Darth Revan
-        </div>
-        <div
-          className="error"
-          key="2"
-        >
-          Darth Vader
-        </div>
-        <div
-          className="info"
-          key="3"
-        >
-          Darth Sidious
+          <div
+            className="info"
+            key="0"
+          >
+            Darth Malak
+          </div>
+          <div
+            className="info"
+            key="1"
+          >
+            Darth Revan
+          </div>
+          <div
+            className="error"
+            key="2"
+          >
+            Darth Vader
+          </div>
+          <div
+            className="info"
+            key="3"
+          >
+            Darth Sidious
+          </div>
         </div>
       </div>
     </div>
     <form
+      className="control-box-form"
       onSubmit={[Function]}
     >
       <input
@@ -81,30 +76,25 @@ exports[`Terminal Component renders the console predictably 1`] = `
   </h4>
   <div
     className="control-box"
-    style={
-      Object {
-        "height": "220px",
-      }
-    }
   >
     <div
       className="log"
-      style={
-        Object {
-          "height": "195",
-        }
-      }
     >
       <div
-        className="info"
+        className="log-inner"
       >
-        Enter your git commands here!
+        <div
+          className="info"
+        >
+          Enter your git commands here!
+        </div>
+        <div
+          className="entries"
+        />
       </div>
-      <div
-        className="entries"
-      />
     </div>
     <form
+      className="control-box-form"
       onSubmit={[Function]}
     >
       <input
