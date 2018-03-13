@@ -4,9 +4,10 @@ import { MAX_FILE_COUNT as maxFileCount } from '../redux/modules/fileSystem';
 export const File = ({ name, statuses }) => (
   <li>
     <span>{name}</span>
-    {!statuses.modified && statuses.tracked && (
-      <button className="btn btn-link btn-sm">Modify</button>
-    )}
+    {!statuses.modified &&
+      statuses.tracked && (
+        <button className="btn btn-link btn-sm">Modify</button>
+      )}
   </li>
 );
 
@@ -81,10 +82,10 @@ export const DuplicateFileNameWarning = () => (
 const FileSystem = ({ files, fileStatus, addFile }) => (
   <div className="col-lg-3 col-sm-12">
     <h4>Files (Max of {maxFileCount})</h4>
-    <FileList files={files} fileStatus={fileStatus} />
     {files.length < maxFileCount && (
       <NewFileForm onAddFile={addFile} files={files} />
     )}
+    <FileList files={files} fileStatus={fileStatus} />
   </div>
 );
 

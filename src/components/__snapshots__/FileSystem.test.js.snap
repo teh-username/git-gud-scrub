@@ -151,11 +151,11 @@ exports[`FileSystem Component renders form if file count is less than max count 
     5
     )
   </h4>
-  <Component
-    fileStatus={Object {}}
+  <NewFileForm
     files={Array []}
   />
-  <NewFileForm
+  <Component
+    fileStatus={Object {}}
     files={Array []}
   />
 </div>
