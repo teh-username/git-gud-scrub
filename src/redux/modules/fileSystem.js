@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { GIT_ADD } from './gitEmulator';
 
 export const MAX_FILE_COUNT = 5;
 const ADD_FILE = 'modules/fileSystem/ADD_FILE';
@@ -56,6 +57,16 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
           modified: true
         }
       };
+    case GIT_ADD:
+      return {
+        ...state,
+        [action.fileName]: {
+          ...state[action.fileName],
+          tracked: true,
+          staged: true,
+          modified: false,
+        }
+      }
     default:
       return state;
   }

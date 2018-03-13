@@ -1,20 +1,27 @@
 import React from 'react';
 import { MAX_FILE_COUNT as maxFileCount } from '../redux/modules/fileSystem';
 
-export const File = ({ name, statuses }) => (
+export const File = ({ name, statuses, onModifyFile }) => (
   <li>
     <span>{name}</span>
     {!statuses.modified &&
       statuses.tracked && (
-        <button className="btn btn-link btn-sm">Modify</button>
+        <button className="btn btn-link btn-sm" onClick={onModifyFile}>
+          Modify
+        </button>
       )}
   </li>
 );
 
-export const FileList = ({ files, fileStatus }) => (
+export const FileList = ({ files, fileStatus, onModifyFile }) => (
   <ul>
     {files.map(name => (
-      <File key={name} name={name} statuses={fileStatus[name]} />
+      <File
+        key={name}
+        name={name}
+        statuses={fileStatus[name]}
+        onModifyFile={() => onModifyFile(name)}
+      />
     ))}
   </ul>
 );
@@ -79,13 +86,13 @@ export const DuplicateFileNameWarning = () => (
   </div>
 );
 
-const FileSystem = ({ files, fileStatus, addFile }) => (
+const FileSystem = ({ files, fileStatus, addFile, modifyFile }) => (
   <div className="col-lg-3 col-sm-12">
     <h4>Files (Max of {maxFileCount})</h4>
     {files.length < maxFileCount && (
       <NewFileForm onAddFile={addFile} files={files} />
     )}
-    <FileList files={files} fileStatus={fileStatus} />
+    <FileList files={files} fileStatus={fileStatus} onModifyFile={modifyFile} />
   </div>
 );
 

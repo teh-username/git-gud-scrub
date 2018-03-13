@@ -6,7 +6,7 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 
 ### Commands to be supported:
 
-* git add [-A]
+* ~~git add~~
 * git rm
 * git commit [-m]
 * git checkout [-- | -b]

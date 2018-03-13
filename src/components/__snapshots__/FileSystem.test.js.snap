@@ -46,6 +46,7 @@ exports[`FileSystem Component FileList Component renders the correct number of F
   <Component
     key="heyo.js"
     name="heyo.js"
+    onModifyFile={[Function]}
     statuses={
       Object {
         "modified": true,
@@ -55,6 +56,7 @@ exports[`FileSystem Component FileList Component renders the correct number of F
   <Component
     key="heya.js"
     name="heya.js"
+    onModifyFile={[Function]}
     statuses={
       Object {
         "modified": false,
