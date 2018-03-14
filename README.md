@@ -8,7 +8,7 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 
 * ~~git add~~
 * git rm
-* git commit [-m]
+* ~~git commit -m "message"~~
 * git checkout [-- | -b]
 * git branch [-d]
 

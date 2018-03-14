@@ -99,5 +99,7 @@ export const modifyFile = fileName => ({
   fileName,
 });
 
-export const getFiles = ({ fileSystem }) => fileSystem.files;
-export const getFileStatus = ({ fileSystem }) => fileSystem.fileStatus;
+export const getFiles = ({ fileSystem: { files } }) => files;
+export const getFileStatus = ({ fileSystem: { fileStatus } }) => fileStatus;
+export const getStagedFiles = ({ fileSystem: { fileStatus } }) =>
+  Object.keys(fileStatus).filter(fileName => fileStatus[fileName].staged);
