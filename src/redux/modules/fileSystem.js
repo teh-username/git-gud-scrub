@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { GIT_ADD } from './gitEmulator';
+import { GIT_ADD, GIT_COMMIT } from './gitEmulator';
 
 export const MAX_FILE_COUNT = 5;
 const ADD_FILE = 'modules/fileSystem/ADD_FILE';
@@ -26,7 +26,7 @@ const MODIFY_FILE = 'modules/fileSystem/MODIFY_FILE';
 
 export const initialState = {
   files: [],
-  fileStatus: {}
+  fileStatus: {},
 };
 
 export const files = (state = initialState.files, action) => {
@@ -46,16 +46,16 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
         [action.fileName]: {
           tracked: false,
           modified: undefined,
-          staged: undefined
-        }
+          staged: undefined,
+        },
       };
     case MODIFY_FILE:
       return {
         ...state,
         [action.fileName]: {
           ...state[action.fileName],
-          modified: true
-        }
+          modified: true,
+        },
       };
     case GIT_ADD:
       return {
@@ -65,8 +65,20 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
           tracked: true,
           staged: true,
           modified: false,
-        }
-      }
+        },
+      };
+    case GIT_COMMIT:
+      return Object.entries(state)
+        .filter(([fileName, statuses]) => statuses.staged)
+        .reduce((previousState, [fileName, statuses]) => {
+          return {
+            ...previousState,
+            [fileName]: {
+              ...previousState[fileName],
+              staged: false,
+            },
+          };
+        }, state);
     default:
       return state;
   }
@@ -74,17 +86,17 @@ export const fileStatus = (state = initialState.fileStatus, action) => {
 
 export default combineReducers({
   files,
-  fileStatus
+  fileStatus,
 });
 
 export const addFile = fileName => ({
   type: ADD_FILE,
-  fileName
+  fileName,
 });
 
 export const modifyFile = fileName => ({
   type: MODIFY_FILE,
-  fileName
+  fileName,
 });
 
 export const getFiles = ({ fileSystem }) => fileSystem.files;

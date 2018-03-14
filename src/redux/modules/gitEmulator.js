@@ -3,10 +3,16 @@ import { commandRebuilder } from '../../utils/commandProcessor';
 import { getFiles } from './fileSystem';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
+export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
 
 export const gitAdd = fileName => ({
   type: GIT_ADD,
   fileName,
+});
+
+export const gitCommit = message => ({
+  type: GIT_COMMIT,
+  message,
 });
 
 export const emulateAdd = ({ command, argument, flags }) => (
