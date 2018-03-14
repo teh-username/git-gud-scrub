@@ -14,5 +14,10 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 
 ### Features to be supported:
 
-* "console" like interface
+* ~~"console" like interface~~
 * Real time commit graph display
+
+### Ice Box
+
+* git rebase
+* Real time collaboration (remote repo related commands)
