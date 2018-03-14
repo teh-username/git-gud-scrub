@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-const ADD_LOG_INFO = 'modules/terminal/ADD_LOG_INFO';
+export const ADD_LOG_INFO = 'modules/terminal/ADD_LOG_INFO';
 export const ADD_LOG_ERROR = 'modules/terminal/ADD_LOG_ERROR';
 
 /*
