@@ -105,3 +105,9 @@ hr {
 .view {
   min-height: 100vh;
 }
+
+.commit-graph {
+  width: 800px;
+  height: 300px;
+  border: 1px solid lightgray;
+}
