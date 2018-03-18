@@ -1,5 +1,6 @@
 import React from 'react';
 import vis from 'vis';
+import 'vis/dist/vis.min.css';
 
 const canvasId = 'commitGraph';
 const visConfig = {
