@@ -7,31 +7,32 @@ const initialState = {
     branches: {
       master: 'qa9j',
       derp: 'kgxu',
+      nope: 'wnrw',
     },
     commits: ['ko9z', 'plve', 'cb54', 'wnrw', 'kgxu', 'qa9j'],
     lookup: {
       ko9z: {
-        message: 'commit message to appear in tooltip',
+        message: 'Lorem ipsum dolor sit amet',
         children: ['plve', 'cb54'],
       },
       plve: {
-        message: 'commit message to appear in tooltip',
+        message: 'consectetur adipiscing elit',
         children: ['wnrw'],
       },
       cb54: {
-        message: 'commit message to appear in tooltip',
+        message: 'Donec molestie dictum dolor',
         children: ['kgxu', 'qa9j'],
       },
       wnrw: {
-        message: 'commit message to appear in tooltip',
+        message: 'Curabitur maximus ante velit',
         children: [],
       },
       kgxu: {
-        message: 'commit message to appear in tooltip',
+        message: ' Aenean sit amet enim at tellus vulputate consectetur',
         children: [],
       },
       qa9j: {
-        message: 'commit message to appear in tooltip',
+        message: 'Nullam auctor sapien a laoreet luctus',
         children: [],
       },
     },

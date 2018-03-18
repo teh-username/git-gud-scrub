@@ -21,18 +21,39 @@ const grapher = state => {
     { nodes: [], edges: [] }
   );
 
-  // Add HEAD
+  // Collect Branch Nodes
+  const branchNodes = Object.entries(state.branches).map(
+    ([branchName, commitRef]) => ({
+      id: branchName,
+      label: branchName,
+      color: '#39AA56',
+    })
+  );
+
+  // Add ref nodes
   graphData.nodes = [
     ...graphData.nodes,
+    ...branchNodes,
     {
       id: 'HEAD',
       label: 'HEAD',
-      color: 'gray',
+      color: '#B94947',
     },
   ];
 
+  // Collect Branch Edges
+  const branchEdges = Object.entries(state.branches).map(
+    ([branchName, commitRef]) => ({
+      from: commitRef,
+      to: branchName,
+      arrows: 'from',
+    })
+  );
+
+  // Add ref edges
   graphData.edges = [
     ...graphData.edges,
+    ...branchEdges,
     {
       from: state.head,
       to: 'HEAD',
