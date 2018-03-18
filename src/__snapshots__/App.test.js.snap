@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders as expected 1`] = `
+Array [
+  <Connect(FileSystem)
+    key="fs"
+/>,
+  <Connect(CommitGraph)
+    key="cg"
+/>,
+  <Connect(Terminal)
+    key="tl"
+/>,
+  <Connect(FileStatus)
+    key="ft"
+/>,
+]
+`;

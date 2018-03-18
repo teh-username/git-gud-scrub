@@ -6,13 +6,7 @@ import { createStore } from 'redux';
 import App from './App';
 import reducer from './redux/index';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <Provider store={createStore(reducer)}>
-      <App />
-    </Provider>,
-    div
-  );
-  ReactDOM.unmountComponentAtNode(div);
+it('renders as expected', () => {
+  const wrapper = shallow(<App />);
+  expect(wrapper).toMatchSnapshot();
 });
