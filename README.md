@@ -7,7 +7,6 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 ### Commands to be supported:
 
 * ~~git add~~
-* git rm
 * ~~git commit -m "message"~~
 * git checkout [-- | -b]
 * git branch [-d]
@@ -20,4 +19,5 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 ### Ice Box
 
 * git rebase
+* git rm
 * Real time collaboration (remote repo related commands)
