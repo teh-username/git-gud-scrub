@@ -2,11 +2,16 @@ import { addLogInfo, addLogError } from './terminal';
 import { getFiles, getStagedFiles } from './fileSystem';
 import { areEqual } from '../../utils/arrayOperators';
 import { commandRebuilder } from '../../utils/commandProcessor';
-import { getHeadReference, getBranches } from './commitGraph';
+import {
+  getHeadReference,
+  getBranches,
+  getBranchReference,
+} from './commitGraph';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
 export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
-export const GIT_BRANCH = 'modules/gitEmulator/GIT_BRANCH';
+export const GIT_BRANCH_ADD = 'modules/gitEmulator/GIT_BRANCH_ADD';
+export const GIT_BRANCH_DELETE = 'modules/gitEmulator/GIT_BRANCH_DELETE';
 
 export const gitAdd = fileName => ({
   type: GIT_ADD,
@@ -18,10 +23,15 @@ export const gitCommit = message => ({
   message,
 });
 
-export const gitBranch = (name, ref) => ({
-  type: GIT_BRANCH,
+export const gitAddBranch = (name, ref) => ({
+  type: GIT_BRANCH_ADD,
   name,
   ref,
+});
+
+export const gitDeleteBranch = name => ({
+  type: GIT_BRANCH_DELETE,
+  name,
 });
 
 export const emulateAdd = ({ command, argument, flags }) => (
@@ -66,6 +76,27 @@ export const emulateBranch = ({ command, argument, flags }) => (
   getState
 ) => {
   const branches = getBranches(getState());
+
+  // Handle case for branch deletion
+  if (areEqual(flags, ['-d'])) {
+    if (!argument) {
+      return dispatch(addLogError('fatal: branch name required'));
+    }
+    if (!branches.includes(argument)) {
+      return dispatch(addLogError(`error: branch '${argument}' not found.`));
+    }
+    if (
+      getBranchReference(getState(), argument) === getHeadReference(getState())
+    ) {
+      return dispatch(
+        addLogError(
+          `error: Cannot delete the branch '${argument}' which you are currently on`
+        )
+      );
+    }
+    return dispatch(gitDeleteBranch(argument));
+  }
+
   // Handle case for empty branch name
   if (!argument) {
     return dispatch(addLogInfo(branches.join(', ')));
@@ -78,7 +109,7 @@ export const emulateBranch = ({ command, argument, flags }) => (
     );
   }
 
-  return dispatch(gitBranch(argument, getHeadReference(getState())));
+  return dispatch(gitAddBranch(argument, getHeadReference(getState())));
 };
 
 const commandActionLookup = {

@@ -9,7 +9,7 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 * ~~git add~~
 * ~~git commit -m "message"~~
 * git checkout [-- | -b]
-* git branch [-d] <branch_name>
+* ~~git branch [-d] <branch_name>~~
 
 ### Features to be supported:
 
