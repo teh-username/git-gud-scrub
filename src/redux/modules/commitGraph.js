@@ -71,3 +71,5 @@ export const getGraphFromState = ({
   });
 
 export const getHeadReference = ({ commitGraph: { head } }) => head;
+export const getBranches = ({ commitGraph: { branches } }) =>
+  Object.keys(branches);

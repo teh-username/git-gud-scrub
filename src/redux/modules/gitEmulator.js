@@ -2,7 +2,7 @@ import { addLogInfo, addLogError } from './terminal';
 import { getFiles, getStagedFiles } from './fileSystem';
 import { areEqual } from '../../utils/arrayOperators';
 import { commandRebuilder } from '../../utils/commandProcessor';
-import { getHeadReference } from './commitGraph';
+import { getHeadReference, getBranches } from './commitGraph';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
 export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
@@ -65,8 +65,15 @@ export const emulateBranch = ({ command, argument, flags }) => (
   dispatch,
   getState
 ) => {
-  // TODO: Handle case for duplicate branch name
   // TODO: Handle case for empty branch name
+  // Handle case for duplicate branch name
+  const branches = getBranches(getState());
+  if (branches.includes(argument)) {
+    return dispatch(
+      addLogError(`fatal: A branch named '${argument}' already exists`)
+    );
+  }
+
   return dispatch(gitBranch(argument, getHeadReference(getState())));
 };
 
