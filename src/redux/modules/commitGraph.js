@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { GIT_BRANCH } from './gitEmulator';
 import grapher from '../../utils/grapher';
 
 const initialState = {
@@ -39,7 +40,17 @@ const initialState = {
 
 const lookup = (state = initialState.lookup, action) => state;
 const commits = (state = initialState.commits, action) => state;
-const branches = (state = initialState.branches, action) => state;
+const branches = (state = initialState.branches, action) => {
+  switch (action.type) {
+    case GIT_BRANCH:
+      return {
+        ...state,
+        [action.name]: action.ref,
+      };
+    default:
+      return state;
+  }
+};
 const head = (state = initialState.head, action) => state;
 
 export default combineReducers({
@@ -58,3 +69,5 @@ export const getGraphFromState = ({
     branches,
     head,
   });
+
+export const getHeadReference = ({ commitGraph: { head } }) => head;

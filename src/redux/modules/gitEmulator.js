@@ -2,9 +2,12 @@ import { addLogInfo, addLogError } from './terminal';
 import { getFiles, getStagedFiles } from './fileSystem';
 import { areEqual } from '../../utils/arrayOperators';
 import { commandRebuilder } from '../../utils/commandProcessor';
+import { getHeadReference } from './commitGraph';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
 export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
+export const GIT_BRANCH = 'modules/gitEmulator/GIT_BRANCH';
+
 export const gitAdd = fileName => ({
   type: GIT_ADD,
   fileName,
@@ -13,6 +16,12 @@ export const gitAdd = fileName => ({
 export const gitCommit = message => ({
   type: GIT_COMMIT,
   message,
+});
+
+export const gitBranch = (name, ref) => ({
+  type: GIT_BRANCH,
+  name,
+  ref,
 });
 
 export const emulateAdd = ({ command, argument, flags }) => (
@@ -52,9 +61,19 @@ export const emulateCommit = ({ command, argument, flags }) => (
   return dispatch(gitCommit(argument));
 };
 
+export const emulateBranch = ({ command, argument, flags }) => (
+  dispatch,
+  getState
+) => {
+  // TODO: Handle case for duplicate branch name
+  // TODO: Handle case for empty branch name
+  return dispatch(gitBranch(argument, getHeadReference(getState())));
+};
+
 const commandActionLookup = {
   add: emulateAdd,
   commit: emulateCommit,
+  branch: emulateBranch,
 };
 
 export const executeCommand = input => dispatch => {
