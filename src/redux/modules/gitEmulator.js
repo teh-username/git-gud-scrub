@@ -65,9 +65,13 @@ export const emulateBranch = ({ command, argument, flags }) => (
   dispatch,
   getState
 ) => {
-  // TODO: Handle case for empty branch name
-  // Handle case for duplicate branch name
   const branches = getBranches(getState());
+  // Handle case for empty branch name
+  if (!argument) {
+    return dispatch(addLogInfo(branches.join(', ')));
+  }
+
+  // Handle case for duplicate branch name
   if (branches.includes(argument)) {
     return dispatch(
       addLogError(`fatal: A branch named '${argument}' already exists`)
