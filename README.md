@@ -4,20 +4,19 @@ A simple web app to help you learn [git](https://git-scm.com/about). Helps visua
 
 App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 
-### Commands to be supported:
+### Version 1 Release To-Dos:
 
 * ~~git add~~
 * ~~git commit -m "message"~~
 * ~~git checkout [-- | -b]~~
 * ~~git branch [-d] <branch_name>~~
-
-### Features to be supported:
-
 * ~~"console" like interface~~
 * ~~Real time commit graph display~~
+* Increase code coverage
 
 ### Ice Box
 
+* Keep to state the available files per branch
 * git rebase
 * git rm
 * Real time collaboration (remote repo related commands)
