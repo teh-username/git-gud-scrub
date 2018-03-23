@@ -8,36 +8,14 @@ import {
 import grapher from '../../utils/grapher';
 
 const initialState = {
-  head: 'qa9j',
+  head: 'vkf5as',
   branches: {
-    master: 'qa9j',
-    derp: 'kgxu',
-    nope: 'wnrw',
+    master: 'vkf5as',
   },
-  commits: ['ko9z', 'plve', 'cb54', 'wnrw', 'kgxu', 'qa9j'],
+  commits: ['vkf5as'],
   lookup: {
-    ko9z: {
-      message: 'Lorem ipsum dolor sit amet',
-      children: ['plve', 'cb54'],
-    },
-    plve: {
-      message: 'consectetur adipiscing elit',
-      children: ['wnrw'],
-    },
-    cb54: {
-      message: 'Donec molestie dictum dolor',
-      children: ['kgxu', 'qa9j'],
-    },
-    wnrw: {
-      message: 'Curabitur maximus ante velit',
-      children: [],
-    },
-    kgxu: {
-      message: ' Aenean sit amet enim at tellus vulputate consectetur',
-      children: [],
-    },
-    qa9j: {
-      message: 'Nullam auctor sapien a laoreet luctus',
+    vkf5as: {
+      message: "Hi! I'm the initial commit",
       children: [],
     },
   },
