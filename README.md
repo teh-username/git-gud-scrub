@@ -14,9 +14,9 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 * ~~Real time commit graph display~~
 * Increase code coverage
 
-### Ice Box
+### Ice Box (Prioritized)
 
-* Keep to state the available files per branch
-* git rebase
-* git rm
-* Real time collaboration (remote repo related commands)
+1. Keep to state the available files per branch
+2. git rm
+3. git rebase
+4. Real time collaboration (remote repo related commands)
