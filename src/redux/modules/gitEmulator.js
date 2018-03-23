@@ -122,13 +122,41 @@ export const emulateCheckout = ({ command, argument, flags }) => (
   dispatch,
   getState
 ) => {
-  const branchRef = getBranchReference(getState(), argument);
-  return dispatch(gitCheckoutBranch(branchRef));
-  // TODOS:
-  //    if no argument and flags, no-op
-  //    if argument and !flag, change branch
-  //    if argument and flag, create branch and change branch
-  //    if checking out same branch [Already on 'master']
+  // If invalid flag/s
+  if (flags && (!areEqual(flags, ['-b']) && !areEqual(flags, []))) {
+    return dispatch(addLogError('error: unknown flag(s)'));
+  }
+
+  // If no argument and flags
+  if (!argument && areEqual(flags, [])) {
+    return dispatch(addLogInfo('no-op'));
+  }
+
+  // If has argument but no flags
+  if (argument && areEqual(flags, [])) {
+    // If branch does not exist
+    const branches = getBranches(getState());
+    if (!branches.includes(argument)) {
+      return dispatch(
+        addLogError(
+          `error: pathspec '${argument}' did not match any file(s) known to git`
+        )
+      );
+    }
+
+    // If checking out same branch
+    const currentRef = getHeadReference(getState());
+    const branchRef = getBranchReference(getState(), argument);
+    if (currentRef === branchRef) {
+      return dispatch(addLogInfo(`Already on '${argument}'`));
+    }
+
+    // Regular checkout
+    return dispatch(gitCheckoutBranch(branchRef));
+  }
+
+  // Emulate branch creation
+  return dispatch(emulateBranch({ argument, flags: [] }));
 };
 
 const commandActionLookup = {
