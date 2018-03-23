@@ -1,5 +1,6 @@
 import { addLogInfo, addLogError } from './terminal';
 import { getFiles, getStagedFiles } from './fileSystem';
+import { randomStringGenerator } from '../../utils/stringHelpers';
 import { areEqual } from '../../utils/arrayOperators';
 import { commandRebuilder } from '../../utils/commandProcessor';
 import {
@@ -19,9 +20,11 @@ export const gitAdd = fileName => ({
   fileName,
 });
 
-export const gitCommit = message => ({
+export const gitCommit = (message, parentRef, ref) => ({
   type: GIT_COMMIT,
   message,
+  parentRef,
+  ref,
 });
 
 export const gitAddBranch = (name, ref) => ({
@@ -74,7 +77,9 @@ export const emulateCommit = ({ command, argument, flags }) => (
     return dispatch(addLogError(`error: commit message missing`));
   }
 
-  return dispatch(gitCommit(argument));
+  const ref = randomStringGenerator();
+  const parentRef = getHeadReference(getState());
+  return dispatch(gitCommit(argument, parentRef, ref));
 };
 
 export const emulateBranch = ({ command, argument, flags }) => (

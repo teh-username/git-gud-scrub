@@ -3,6 +3,7 @@ import {
   GIT_BRANCH_ADD,
   GIT_BRANCH_DELETE,
   GIT_BRANCH_CHECKOUT,
+  GIT_COMMIT,
 } from './gitEmulator';
 import grapher from '../../utils/grapher';
 
@@ -42,8 +43,32 @@ const initialState = {
   },
 };
 
-const lookup = (state = initialState.lookup, action) => state;
-const commits = (state = initialState.commits, action) => state;
+const lookup = (state = initialState.lookup, action) => {
+  switch (action.type) {
+    case GIT_COMMIT:
+      return {
+        ...state,
+        [action.parentRef]: {
+          ...state[action.parentRef],
+          children: [...state[action.parentRef].children, action.ref],
+        },
+        [action.ref]: {
+          message: action.message,
+          children: [],
+        },
+      };
+    default:
+      return state;
+  }
+};
+const commits = (state = initialState.commits, action) => {
+  switch (action.type) {
+    case GIT_COMMIT:
+      return [...state, action.ref];
+    default:
+      return state;
+  }
+};
 const branches = (state = initialState.branches, action) => {
   switch (action.type) {
     case GIT_BRANCH_ADD:
@@ -61,7 +86,16 @@ const branches = (state = initialState.branches, action) => {
           }),
           {}
         );
-
+    case GIT_COMMIT:
+      return Object.entries(state)
+        .filter(([branch, ref]) => ref === action.parentRef)
+        .reduce(
+          (acc, [branch, _]) => ({
+            ...acc,
+            [branch]: action.ref,
+          }),
+          { ...state }
+        );
     default:
       return state;
   }
@@ -69,6 +103,7 @@ const branches = (state = initialState.branches, action) => {
 const head = (state = initialState.head, action) => {
   switch (action.type) {
     case GIT_BRANCH_CHECKOUT:
+    case GIT_COMMIT:
       return action.ref;
     default:
       return state;

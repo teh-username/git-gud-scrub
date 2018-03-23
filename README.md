@@ -14,7 +14,7 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 ### Features to be supported:
 
 * ~~"console" like interface~~
-* Real time commit graph display
+* ~~Real time commit graph display~~
 
 ### Ice Box
 
