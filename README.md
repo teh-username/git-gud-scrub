@@ -12,7 +12,7 @@ App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 * ~~git branch [-d] <branch_name>~~
 * ~~"console" like interface~~
 * ~~Real time commit graph display~~
-* Increase code coverage
+* Set Code Coverage level to 90-ish
 
 ### Ice Box (Prioritized)
 
