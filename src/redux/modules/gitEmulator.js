@@ -7,6 +7,7 @@ import {
   getHeadReference,
   getBranches,
   getBranchReference,
+  getCurrentBranch,
 } from './commitGraph';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
@@ -20,11 +21,12 @@ export const gitAdd = fileName => ({
   fileName,
 });
 
-export const gitCommit = (message, parentRef, ref) => ({
+export const gitCommit = (message, parentRef, ref, currentBranch) => ({
   type: GIT_COMMIT,
   message,
   parentRef,
   ref,
+  currentBranch,
 });
 
 export const gitAddBranch = (name, ref) => ({
@@ -38,9 +40,9 @@ export const gitDeleteBranch = name => ({
   name,
 });
 
-export const gitCheckoutBranch = ref => ({
+export const gitCheckoutBranch = name => ({
   type: GIT_BRANCH_CHECKOUT,
-  ref,
+  name,
 });
 
 export const emulateAdd = ({ command, argument, flags }) => (
@@ -79,7 +81,8 @@ export const emulateCommit = ({ command, argument, flags }) => (
 
   const ref = randomStringGenerator();
   const parentRef = getHeadReference(getState());
-  return dispatch(gitCommit(argument, parentRef, ref));
+  const currentBranch = getCurrentBranch(getState());
+  return dispatch(gitCommit(argument, parentRef, ref, currentBranch));
 };
 
 export const emulateBranch = ({ command, argument, flags }) => (
@@ -97,7 +100,7 @@ export const emulateBranch = ({ command, argument, flags }) => (
       return dispatch(addLogError(`error: branch '${argument}' not found.`));
     }
     if (
-      getBranchReference(getState(), argument) === getHeadReference(getState())
+      getBranchReference(getState(), argument) === getCurrentBranch(getState())
     ) {
       return dispatch(
         addLogError(
@@ -150,18 +153,19 @@ export const emulateCheckout = ({ command, argument, flags }) => (
     }
 
     // If checking out same branch
-    const currentRef = getHeadReference(getState());
-    const branchRef = getBranchReference(getState(), argument);
-    if (currentRef === branchRef) {
+    const currentBranch = getCurrentBranch(getState());
+    if (currentBranch === argument) {
       return dispatch(addLogInfo(`Already on '${argument}'`));
     }
 
     // Regular checkout
-    return dispatch(gitCheckoutBranch(branchRef));
+    return dispatch(gitCheckoutBranch(argument));
   }
 
   // Emulate branch creation
-  return dispatch(emulateBranch({ argument, flags: [] }));
+  dispatch(emulateBranch({ argument, flags: [] }));
+  // Regular checkout
+  return dispatch(gitCheckoutBranch(argument));
 };
 
 const commandActionLookup = {

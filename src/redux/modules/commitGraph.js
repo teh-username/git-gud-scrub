@@ -8,7 +8,7 @@ import {
 import grapher from '../../utils/grapher';
 
 const initialState = {
-  head: 'vkf5as',
+  head: 'master',
   branches: {
     master: 'vkf5as',
   },
@@ -65,15 +65,10 @@ const branches = (state = initialState.branches, action) => {
           {}
         );
     case GIT_COMMIT:
-      return Object.entries(state)
-        .filter(([branch, ref]) => ref === action.parentRef)
-        .reduce(
-          (acc, [branch, _]) => ({
-            ...acc,
-            [branch]: action.ref,
-          }),
-          { ...state }
-        );
+      return {
+        ...state,
+        [action.currentBranch]: action.ref,
+      };
     default:
       return state;
   }
@@ -81,8 +76,7 @@ const branches = (state = initialState.branches, action) => {
 const head = (state = initialState.head, action) => {
   switch (action.type) {
     case GIT_BRANCH_CHECKOUT:
-    case GIT_COMMIT:
-      return action.ref;
+      return action.name;
     default:
       return state;
   }
@@ -105,7 +99,9 @@ export const getGraphFromState = ({
     head,
   });
 
-export const getHeadReference = ({ commitGraph: { head } }) => head;
+export const getCurrentBranch = ({ commitGraph: { head } }) => head;
+export const getHeadReference = ({ commitGraph: { head, branches } }) =>
+  branches[head];
 export const getBranchReference = ({ commitGraph: { branches } }, branch) =>
   branches[branch];
 export const getBranches = ({ commitGraph: { branches } }) =>
