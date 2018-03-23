@@ -12,6 +12,7 @@ export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
 export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
 export const GIT_BRANCH_ADD = 'modules/gitEmulator/GIT_BRANCH_ADD';
 export const GIT_BRANCH_DELETE = 'modules/gitEmulator/GIT_BRANCH_DELETE';
+export const GIT_BRANCH_CHECKOUT = 'modules/gitEmulator/GIT_BRANCH_CHECKOUT';
 
 export const gitAdd = fileName => ({
   type: GIT_ADD,
@@ -32,6 +33,11 @@ export const gitAddBranch = (name, ref) => ({
 export const gitDeleteBranch = name => ({
   type: GIT_BRANCH_DELETE,
   name,
+});
+
+export const gitCheckoutBranch = ref => ({
+  type: GIT_BRANCH_CHECKOUT,
+  ref,
 });
 
 export const emulateAdd = ({ command, argument, flags }) => (
@@ -112,10 +118,24 @@ export const emulateBranch = ({ command, argument, flags }) => (
   return dispatch(gitAddBranch(argument, getHeadReference(getState())));
 };
 
+export const emulateCheckout = ({ command, argument, flags }) => (
+  dispatch,
+  getState
+) => {
+  const branchRef = getBranchReference(getState(), argument);
+  return dispatch(gitCheckoutBranch(branchRef));
+  // TODOS:
+  //    if no argument and flags, no-op
+  //    if argument and !flag, change branch
+  //    if argument and flag, create branch and change branch
+  //    if checking out same branch [Already on 'master']
+};
+
 const commandActionLookup = {
   add: emulateAdd,
   commit: emulateCommit,
   branch: emulateBranch,
+  checkout: emulateCheckout,
 };
 
 export const executeCommand = input => dispatch => {

@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux';
-import { GIT_BRANCH_ADD, GIT_BRANCH_DELETE } from './gitEmulator';
+import {
+  GIT_BRANCH_ADD,
+  GIT_BRANCH_DELETE,
+  GIT_BRANCH_CHECKOUT,
+} from './gitEmulator';
 import grapher from '../../utils/grapher';
 
 const initialState = {
@@ -62,7 +66,14 @@ const branches = (state = initialState.branches, action) => {
       return state;
   }
 };
-const head = (state = initialState.head, action) => state;
+const head = (state = initialState.head, action) => {
+  switch (action.type) {
+    case GIT_BRANCH_CHECKOUT:
+      return action.ref;
+    default:
+      return state;
+  }
+};
 
 export default combineReducers({
   lookup,
