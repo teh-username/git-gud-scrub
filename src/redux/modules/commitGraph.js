@@ -73,7 +73,7 @@ const branches = (state = initialState.branches, action) => {
       return state;
   }
 };
-const head = (state = initialState.head, action) => {
+export const head = (state = initialState.head, action) => {
   switch (action.type) {
     case GIT_BRANCH_CHECKOUT:
       return action.name;
