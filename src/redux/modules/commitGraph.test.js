@@ -2,8 +2,14 @@ import {
   head as headReducer,
   commits as commitsReducer,
   lookup as lookupReducer,
+  branches as branchesReducer,
 } from './commitGraph';
-import { gitCheckoutBranch, gitCommit } from './gitEmulator';
+import {
+  gitCheckoutBranch,
+  gitCommit,
+  gitAddBranch,
+  gitDeleteBranch,
+} from './gitEmulator';
 
 describe('commitGraph modules test', () => {
   describe('head reducer', () => {
@@ -62,6 +68,44 @@ describe('commitGraph modules test', () => {
           },
         })
       );
+    });
+  });
+
+  describe('branches reducer', () => {
+    it('should return the default state', () => {
+      expect(branchesReducer(undefined, {})).toEqual({
+        master: 'vkf5as',
+      });
+    });
+
+    it('should correctly add a new branch', () => {
+      expect(branchesReducer(undefined, gitAddBranch('test', 'ref'))).toEqual({
+        master: 'vkf5as',
+        test: 'ref',
+      });
+    });
+
+    it('should correctly delete a branch', () => {
+      const state = {
+        master: 'vkf5as',
+        test: 'ref',
+      };
+      expect(branchesReducer(state, gitDeleteBranch('test'))).toEqual({
+        master: 'vkf5as',
+      });
+    });
+
+    it('should correctly point to a new ref on commit', () => {
+      const state = {
+        master: 'vkf5as',
+        test: 'ref',
+      };
+      expect(
+        branchesReducer(state, gitCommit('nsg', 'parent', 'newRef', 'test'))
+      ).toEqual({
+        master: 'vkf5as',
+        test: 'newRef',
+      });
     });
   });
 });

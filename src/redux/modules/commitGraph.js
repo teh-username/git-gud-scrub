@@ -47,7 +47,7 @@ export const commits = (state = initialState.commits, action) => {
       return state;
   }
 };
-const branches = (state = initialState.branches, action) => {
+export const branches = (state = initialState.branches, action) => {
   switch (action.type) {
     case GIT_BRANCH_ADD:
       return {
