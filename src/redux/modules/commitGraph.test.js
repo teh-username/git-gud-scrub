@@ -1,4 +1,8 @@
-import { head as headReducer, commits as commitsReducer } from './commitGraph';
+import {
+  head as headReducer,
+  commits as commitsReducer,
+  lookup as lookupReducer,
+} from './commitGraph';
 import { gitCheckoutBranch, gitCommit } from './gitEmulator';
 
 describe('commitGraph modules test', () => {
@@ -21,6 +25,43 @@ describe('commitGraph modules test', () => {
       expect(
         commitsReducer(['test'], gitCommit('msg', 'parent', 'ref'))
       ).toEqual(['test', 'ref']);
+    });
+  });
+
+  describe('lookup reducer', () => {
+    it('should return the initial state', () => {
+      expect(lookupReducer(undefined, {})).toEqual({
+        vkf5as: {
+          message: "Hi! I'm the initial commit",
+          children: [],
+        },
+      });
+    });
+
+    it('should correctly add a lookup entry on a new commit', () => {
+      expect(
+        lookupReducer(undefined, gitCommit('msg', 'vkf5as', 'test'))
+      ).toEqual(
+        expect.objectContaining({
+          test: {
+            message: 'msg',
+            children: [],
+          },
+        })
+      );
+    });
+
+    it('should correctly update the children of the parent commit', () => {
+      expect(
+        lookupReducer(undefined, gitCommit('msg', 'vkf5as', 'test'))
+      ).toEqual(
+        expect.objectContaining({
+          vkf5as: {
+            message: "Hi! I'm the initial commit",
+            children: ['test'],
+          },
+        })
+      );
     });
   });
 });

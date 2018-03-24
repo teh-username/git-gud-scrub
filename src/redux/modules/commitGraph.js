@@ -21,7 +21,7 @@ const initialState = {
   },
 };
 
-const lookup = (state = initialState.lookup, action) => {
+export const lookup = (state = initialState.lookup, action) => {
   switch (action.type) {
     case GIT_COMMIT:
       return {
