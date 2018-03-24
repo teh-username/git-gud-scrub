@@ -39,7 +39,7 @@ const lookup = (state = initialState.lookup, action) => {
       return state;
   }
 };
-const commits = (state = initialState.commits, action) => {
+export const commits = (state = initialState.commits, action) => {
   switch (action.type) {
     case GIT_COMMIT:
       return [...state, action.ref];
