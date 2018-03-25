@@ -1,4 +1,4 @@
-import { addLogInfo, addLogError } from './terminal';
+import { ADD_LOG_ERROR, addLogInfo, addLogError } from './terminal';
 import { getFiles, getStagedFiles } from './fileSystem';
 import { randomStringGenerator } from '../../utils/stringHelpers';
 import { areEqual } from '../../utils/arrayOperators';
@@ -134,7 +134,7 @@ export const emulateCheckout = ({ command, argument, flags }) => (
   getState
 ) => {
   // If invalid flag/s
-  if (flags && (!areEqual(flags, ['-b']) && !areEqual(flags, []))) {
+  if (!areEqual(flags, ['-b']) && !areEqual(flags, [])) {
     return dispatch(addLogError('error: unknown flag(s)'));
   }
 
@@ -166,7 +166,11 @@ export const emulateCheckout = ({ command, argument, flags }) => (
   }
 
   // Emulate branch creation
-  dispatch(emulateBranch({ argument, flags: [] }));
+  const branchState = dispatch(emulateBranch({ argument, flags: [] }));
+  if (branchState.type === ADD_LOG_ERROR) {
+    return;
+  }
+
   // Regular checkout
   return dispatch(gitCheckoutBranch(argument));
 };

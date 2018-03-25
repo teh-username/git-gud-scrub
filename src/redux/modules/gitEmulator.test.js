@@ -2,10 +2,12 @@ import {
   GIT_ADD,
   GIT_COMMIT,
   GIT_BRANCH_ADD,
+  GIT_BRANCH_CHECKOUT,
   emulateAdd,
   emulateCommit,
   executeCommand,
   emulateBranch,
+  emulateCheckout,
 } from './gitEmulator';
 import { ADD_LOG_INFO, ADD_LOG_ERROR } from './terminal';
 import { initialState as commitGraphState } from './commitGraph';
@@ -303,6 +305,156 @@ describe('gitEmulator module test', () => {
         emulateBranch({
           command: 'branch',
           flags: [],
+          argument: 'test',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('emulateCheckout test', () => {
+    const baseState = {
+      commitGraph: commitGraphState,
+    };
+
+    it('handles invalid flags', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'error: unknown flag(s)',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: ['-asd'],
+          argument: 'master',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles empty argument and empty flag', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_INFO,
+          text: 'no-op',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: [],
+          argument: '',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles checkout of non-existing branch', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: `error: pathspec 'test' did not match any file(s) known to git`,
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: [],
+          argument: 'test',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles checkout of same branch', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_INFO,
+          text: `Already on 'master'`,
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: [],
+          argument: 'master',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles checkout of existing valid branch', () => {
+      const caseState = {
+        commitGraph: {
+          ...baseState.commitGraph,
+          branches: {
+            ...baseState.commitGraph.branches,
+            test: 'test-ref',
+          },
+        },
+      };
+
+      const expectedActions = [
+        {
+          type: GIT_BRANCH_CHECKOUT,
+          name: 'test',
+        },
+      ];
+
+      const store = mockStore(caseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: [],
+          argument: 'test',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles creation and checkout of existing branch', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: `fatal: A branch named 'master' already exists`,
+        },
+      ];
+
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: ['-b'],
+          argument: 'master',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles creation and checkout of non-existing branch', () => {
+      const expectedActions = [
+        {
+          type: GIT_BRANCH_ADD,
+          name: 'test',
+          ref: 'vkf5as',
+        },
+        {
+          type: GIT_BRANCH_CHECKOUT,
+          name: 'test',
+        },
+      ];
+
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCheckout({
+          command: 'checkout',
+          flags: ['-b'],
           argument: 'test',
         })
       );
