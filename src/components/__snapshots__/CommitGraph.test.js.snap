@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommitGraph Component renders correctly 1`] = `
+<div
+  className="col-lg-9 col-sm-12"
+>
+  <h4>
+    Commit Graph
+  </h4>
+  <div
+    className="commit-graph"
+    id="commitGraph"
+  />
+</div>
+`;
