@@ -4,19 +4,40 @@ A simple web app to help you learn [git](https://git-scm.com/about). Helps visua
 
 App can be found [here](https://gitgudscrub.xyz/). Updated frequently!
 
-### Version 1 Release To-Dos:
+### Running Locally
 
-* ~~git add~~
-* ~~git commit -m "message"~~
-* ~~git checkout [-- | -b]~~
-* ~~git branch [-d] <branch_name>~~
-* ~~"console" like interface~~
-* ~~Real time commit graph display~~
-* Set Code Coverage level to 90-ish
+To run a local copy of the application, do the following:
 
-### Ice Box (Prioritized)
+```
+git clone https://github.com/teh-username/git-gud-scrub.git
+cd git-gud-scrub
+yarn install
+yarn start
+```
+
+You can also do `yarn test` to run tests locally as well.
+
+#### Ice Box (Prioritized)
 
 1. Keep to state the available files per branch
-2. git rm
-3. git rebase
-4. Real time collaboration (remote repo related commands)
+2. git checkout [--]
+3. git rm
+4. git rebase
+5. Real time collaboration (remote repo related commands)
+
+### Release Notes
+
+## Version 1
+
+Support for the following commands:
+
+* git add
+* git commit -m "message"
+* git checkout [-b] <branch_name>
+* git branch [-d] <branch_name>
+
+Implementation of the following feature set:
+
+* "console" like interface
+* Real time commit graph display
+* Set Code Coverage level to 90-ish
