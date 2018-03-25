@@ -3,12 +3,7 @@ import { getFiles, getStagedFiles } from './fileSystem';
 import { randomStringGenerator } from '../../utils/stringHelpers';
 import { areEqual } from '../../utils/arrayOperators';
 import { commandRebuilder } from '../../utils/commandProcessor';
-import {
-  getHeadReference,
-  getBranches,
-  getBranchReference,
-  getCurrentBranch,
-} from './commitGraph';
+import { getHeadReference, getBranches, getCurrentBranch } from './commitGraph';
 
 export const GIT_ADD = 'modules/gitEmulator/GIT_ADD';
 export const GIT_COMMIT = 'modules/gitEmulator/GIT_COMMIT';
