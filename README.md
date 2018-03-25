@@ -27,7 +27,7 @@ You can also do `yarn test` to run tests locally as well.
 
 ### Release Notes
 
-## Version 1
+## [Version 1](https://github.com/teh-username/git-gud-scrub/releases/tag/v1.0)
 
 Support for the following commands:
 
