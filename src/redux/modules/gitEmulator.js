@@ -89,6 +89,11 @@ export const emulateBranch = ({ command, argument, flags }) => (
   dispatch,
   getState
 ) => {
+  // Handle case for invalid flags
+  if (!areEqual(flags, []) && !areEqual(flags, ['-d'])) {
+    return dispatch(addLogError('error: missing / unknown flag(s)'));
+  }
+
   const branches = getBranches(getState());
 
   // Handle case for branch deletion
@@ -97,11 +102,9 @@ export const emulateBranch = ({ command, argument, flags }) => (
       return dispatch(addLogError('fatal: branch name required'));
     }
     if (!branches.includes(argument)) {
-      return dispatch(addLogError(`error: branch '${argument}' not found.`));
+      return dispatch(addLogError(`error: branch '${argument}' not found`));
     }
-    if (
-      getBranchReference(getState(), argument) === getCurrentBranch(getState())
-    ) {
+    if (getCurrentBranch(getState()) === argument) {
       return dispatch(
         addLogError(
           `error: Cannot delete the branch '${argument}' which you are currently on`

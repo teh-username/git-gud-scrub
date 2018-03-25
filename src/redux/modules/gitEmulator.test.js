@@ -1,9 +1,11 @@
 import {
   GIT_ADD,
   GIT_COMMIT,
+  GIT_BRANCH_ADD,
   emulateAdd,
   emulateCommit,
   executeCommand,
+  emulateBranch,
 } from './gitEmulator';
 import { ADD_LOG_INFO, ADD_LOG_ERROR } from './terminal';
 import { initialState as commitGraphState } from './commitGraph';
@@ -169,6 +171,139 @@ describe('gitEmulator module test', () => {
           command: 'commit',
           flags: ['-m'],
           argument: 'test commit',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('emulateBranch test', () => {
+    const baseState = {
+      commitGraph: commitGraphState,
+    };
+
+    it('handles no argument and no flags', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_INFO,
+          text: 'master',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: [],
+          argument: '',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles valid argument and with invalid flags', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'error: missing / unknown flag(s)',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: ['-asd'],
+          argument: 'test',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles missing argument and with valid flags', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'fatal: branch name required',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: ['-d'],
+          argument: '',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles deletion of non-existing branch', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: `error: branch 'doh' not found`,
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: ['-d'],
+          argument: 'doh',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles deletion of branch currently checked out', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: `error: Cannot delete the branch 'master' which you are currently on`,
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: ['-d'],
+          argument: 'master',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles creation of duplicate branch', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: `fatal: A branch named 'master' already exists`,
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: [],
+          argument: 'master',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('handles creation valid branch', () => {
+      const expectedActions = [
+        {
+          type: GIT_BRANCH_ADD,
+          name: 'test',
+          ref: 'vkf5as',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateBranch({
+          command: 'branch',
+          flags: [],
+          argument: 'test',
         })
       );
       expect(store.getActions()).toEqual(expectedActions);
