@@ -7,7 +7,7 @@ import {
 } from './gitEmulator';
 import grapher from '../../utils/grapher';
 
-const initialState = {
+export const initialState = {
   head: 'master',
   branches: {
     master: 'vkf5as',

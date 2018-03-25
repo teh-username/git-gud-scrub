@@ -66,17 +66,17 @@ export const emulateCommit = ({ command, argument, flags }) => (
   // committing with nothing staged
   const stagedFiles = getStagedFiles(getState());
   if (stagedFiles.length <= 0) {
-    return dispatch(addLogInfo(`nothing to commit, working directory clean`));
+    return dispatch(addLogInfo('nothing to commit, working directory clean'));
   }
 
   // missing flags / unsupported flags
   if (!areEqual(flags, ['-m'])) {
-    return dispatch(addLogError(`error: missing / unknown flag(s)`));
+    return dispatch(addLogError('error: missing / unknown flag(s)'));
   }
 
   // committing with no commit message
   if (!argument) {
-    return dispatch(addLogError(`error: commit message missing`));
+    return dispatch(addLogError('error: commit message missing'));
   }
 
   const ref = randomStringGenerator();

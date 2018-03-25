@@ -1,5 +1,12 @@
-import { GIT_ADD, emulateAdd, executeCommand } from './gitEmulator';
+import {
+  GIT_ADD,
+  GIT_COMMIT,
+  emulateAdd,
+  emulateCommit,
+  executeCommand,
+} from './gitEmulator';
 import { ADD_LOG_INFO, ADD_LOG_ERROR } from './terminal';
+import { initialState as commitGraphState } from './commitGraph';
 import mockStore from '../../utils/mockStore';
 
 describe('gitEmulator module test', () => {
@@ -39,6 +46,129 @@ describe('gitEmulator module test', () => {
         emulateAdd({
           command: 'add',
           argument: 'darth_malak.py',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+
+  describe('emulateCommit test', () => {
+    const baseState = {
+      fileSystem: {
+        files: ['bane'],
+        fileStatus: {
+          bane: {
+            tracked: true,
+            staged: true,
+            modified: false,
+          },
+        },
+      },
+      commitGraph: commitGraphState,
+    };
+
+    it('should handle committing with nothing staged', () => {
+      const caseState = {
+        ...baseState,
+        fileSystem: {
+          ...baseState.fileSystem,
+          fileStatus: {
+            ...baseState.fileSystem.fileStatus,
+            bane: {
+              ...baseState.fileSystem.fileStatus.bane,
+              staged: false,
+            },
+          },
+        },
+      };
+
+      const expectedActions = [
+        {
+          type: ADD_LOG_INFO,
+          text: 'nothing to commit, working directory clean',
+        },
+      ];
+      const store = mockStore(caseState);
+      store.dispatch(
+        emulateCommit({
+          command: 'commit',
+          flags: ['-m'],
+          argument: 'test commit',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should handle missing flag', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'error: missing / unknown flag(s)',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCommit({
+          command: 'commit',
+          flags: [],
+          argument: 'test commit',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should handle unsupported flags', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'error: missing / unknown flag(s)',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCommit({
+          command: 'commit',
+          flags: ['-asd', '-wot'],
+          argument: 'test commit',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should handle missing commit message', () => {
+      const expectedActions = [
+        {
+          type: ADD_LOG_ERROR,
+          text: 'error: commit message missing',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCommit({
+          command: 'commit',
+          flags: ['-m'],
+          argument: '',
+        })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('should dispatch correct action on valid commit', () => {
+      const expectedActions = [
+        {
+          type: GIT_COMMIT,
+          message: 'test commit',
+          parentRef: 'vkf5as',
+          ref: expect.any(String),
+          currentBranch: 'master',
+        },
+      ];
+      const store = mockStore(baseState);
+      store.dispatch(
+        emulateCommit({
+          command: 'commit',
+          flags: ['-m'],
+          argument: 'test commit',
         })
       );
       expect(store.getActions()).toEqual(expectedActions);
