@@ -5,6 +5,18 @@
   force = true
 
 [[redirects]]
+  from = "http://gitgudscrub.xyz/*"
+  to = "http://gitgudscrub.laroberto.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://gitgudscrub.xyz/*"
+  to = "https://gitgudscrub.laroberto.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "https://www.gitgudscrub.xyz/*"
   to = "https://gitgudscrub.laroberto.com/:splat"
   status = 301
